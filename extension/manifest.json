@@ -1,0 +1,27 @@
+﻿{
+	"manifest_version": 2,
+
+	"name": "元智 portal+",
+	"description": "A extension improve yzu portal.",
+	"version": "0.1",
+	"content_scripts": [ {
+		"all_frames": true,
+		"css": ["css/style.css"],
+		"js": ["js/jquery.min.js" , "js/jquery.plugin.min.js" , "js/jquery.timer.min.js" , "js/jquery.bpopup.min.js" ,  "portal.js"],
+		"matches": [ "*://*/*" ]
+	} ],
+	"background": {
+		"page": "background.html"
+	},
+	"icons": {
+		"16": "icon/icon16.png",
+		"48": "icon/icon48.png",
+		"128": "icon/icon128.png" 
+	},
+	"browser_action": {
+		"default_icon": "icon/icon48.png",
+		"default_title": "YZU Portal +"
+	},
+	"permissions": [ "tabs" , "*://*/*" , "storage" ] ,
+	"web_accessible_resources": [ "js/jquery.min.map" ]
+}
