@@ -1,25 +1,54 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
+class Welcome extends MY_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in 
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
 	public function index()
+	{	
+		$user = $this->input->post('user') ;
+		$_SESSION['user'] = $user ;
+		echo $_SESSION['user'] ;
+	}
+
+	public function test()
 	{
-		$this->load->view('welcome_message');
+		echo $_SESSION['user'] ;
+	}
+
+	public function getAllClass()
+	{
+		$this->load->model('classmodel') ;
+		$classInfo = $this->classmodel->getAllClass() ;
+
+		echo json_encode($classInfo) ;
+	}
+
+	public function getClassInfo($classTime , $page)
+	{
+		$this->load->model('classmodel') ;
+		$classInfo = $this->classmodel->getClassInfo($classTime , $page) ;
+
+		echo json_encode($classInfo) ;
+	}
+
+	public function getClassComment($className , $teacher , $page)
+	{
+		$this->load->model('classmodel') ;
+		$classComment = $this->classmodel->getClassComment($className , $teacher , $page) ;
+
+		for($i = 0 ; $i < count($classComment) ; $i++)
+			$classComment[$i]->commenter = substr($classComment[$i]->commenter , 0 , strlen($classComment[$i]->commenter) - 2) . '**' ;
+
+		echo json_encode($classComment) ;
+	}
+
+	public function insertClassComment()
+	{
+		$className = $this->input->post('className') ;
+		$teacher = $this->input->post('teacher') ;
+		$comment = htmlspecialchars($this->input->post('comment')) ;
+		$commenter = $_SESSION['user'] ;
+		$this->load->model('classmodel') ;
+		$this->classmodel->insertClassComment($className , $teacher , $comment , $commenter) ;
 	}
 }
 

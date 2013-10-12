@@ -35,5 +35,11 @@ class classModel extends CI_Model {
 		) ;
 		$this->db->insert('class_comment' , $data) ;
 	}
+
+	function getAllClass()
+	{
+		$query = $this->db->get('class_info') ;
+		return $query->result() ;
+	}
 	
 }
