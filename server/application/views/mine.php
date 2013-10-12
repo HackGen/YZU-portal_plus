@@ -17,13 +17,27 @@
 					</a>
 					<p>
 						<ul class="product_info">
-							<li> <a href="<?php echo base_url() . 'index.php/market/info/' . $item->product_id ?>"><?php echo $statue.' '.$item->product_title; ?></a></li>
+							<li> <a href="<?php echo base_url() . 'index.php/market/info/' . $item->product_id ?>"><?php echo $item->product_title; ?></a></li><br />
 							<div class="btn-group">
 								<button type="button" class="btn btn-primary">
 									<?php echo $item->product_type; ?>
 								</button>	
 							    <button type="button" class="btn btn-default disabled">
 									<?php echo $item->product_price; ?>
+								</button>
+							</div>
+							<div class="product_status">
+								<?php echo $statue ; ?>
+							</div>
+							
+							<div class="btn-group btn-down">
+								<?php if ($item->product_status != 0) { ?>
+								<button type="button" class="btn btn-info sold_out" val="<?php echo $item->product_id ?>">
+									售出
+								</button>
+								<?php } ?>
+								<button type="button" class="btn btn-danger delete_item" val="<?php echo $item->product_id ?>">
+									刪除
 								</button>
 							</div>
 					</p>

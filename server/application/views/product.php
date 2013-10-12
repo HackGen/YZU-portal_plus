@@ -3,6 +3,7 @@
 	<div class="col-md-10">
 
 		<div class="container">
+			<?php if (isset($product_info) && $product_info != array()) {  ?>
 			<div id="product_items" class="js-masonry container" data-masonry-options='{ "columnWidth": 40, "itemSelector": ".product_item" }'>
 				
 				<?php foreach($product_info as $item) {
@@ -17,7 +18,7 @@
 					</a>
 					<p>
 						<ul class="product_info">
-							<li> <a href="<?php echo base_url() . 'index.php/market/info/' . $item->product_id ?>"><?php echo $statue.' '.$item->product_title; ?></a></li>
+							<li> <a href="<?php echo base_url() . 'index.php/market/info/' . $item->product_id ?>"><?php echo $item->product_title; ?></a></li><br />
 							<div class="btn-group">
 								<button type="button" class="btn btn-primary">
 									<?php echo $item->product_type; ?>
@@ -26,11 +27,17 @@
 									<?php echo $item->product_price; ?>
 								</button>
 							</div>
+							<div class="product_status">
+								<?php echo $statue ; ?>
+							</div>
 						</ul>
 					</p>
 				</div>
-				<?php } ?>
+				<?php  }  ?>
 			</div>
+			<?php } else { ?>
+			目前沒有商品。
+			<?php } ?>
 		</div>
 
 	</div>

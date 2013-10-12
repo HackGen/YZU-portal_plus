@@ -36,7 +36,7 @@ $(document).ready(function()
 			window.location = "https://yzu.revo.so/index.php/market/filter/name/" + $(this).val() ;
 	}) ;
 
-	function isInt()
+	function is_int()
 	{
 		var x = $('#input_price').val();
 		var y = parseInt(x);
@@ -45,14 +45,54 @@ $(document).ready(function()
 		return true
 	}
 
-	$('.btn_post').click(function(){
-		if ( $('#product_type').val() == '二手書籍')
-		{
-			if (!isInt())
+	function check_in_database_or_not()
+	{
+		var x = $('#input_course').val();
+		var y = '';
+		$.get('/yzu/index.php/welcome/check_class_name/' + x, function(response){
+			if (response == 'not found')
 			{
-				alert('請照實輸入金額！');
+				alert('請輸入正確課程名稱！');
 				return false;
 			}
+		});
+	}
+
+	$('.btn_post').click(function(){
+		if (!is_int())
+		{
+			alert('請照實輸入金額！');
+			return false;
 		}
+
+		if ( $('#product_type').val() == '二手書籍')
+		{
+			check_in_database_or_not();
+		}
+	});
+
+	$('.sold_out').click(function() {
+		$.get('https://yzu.revo.so/index.php/market/update_product_data/' + $(this).attr('val') , function() {
+			location.reload() ;
+		}) ;
+	}) ;
+
+	$('.delete_item').click(function() {
+		$.get('https://yzu.revo.so/index.php/market/delete_product_data/' + $(this).attr('val') , function() {
+			location.reload() ;
+		}) ;
+	}) ;
+
+	$('#input_course').focus(function(){
+		$('.autocomplete-suggestions').show();
+	});
+
+	$('#input_course').blur(function(){
+		$('.autocomplete-suggestions').hide();
+	});
+
+
+	$('#input_course').autocomplete({
+	    serviceUrl: '/index.php/market/get_class_name'
 	});
 });

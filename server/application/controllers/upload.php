@@ -89,9 +89,13 @@ class Upload extends MY_Controller {
 	{
 		$upload_path_url = dirname($_SERVER["SCRIPT_FILENAME"])."/upload/";
 		$success = unlink($upload_path_url . $file);
-		$type = preg_split('/[.]/', $file);
-		$type = '.' . $type[count($type) - 1];
-		unlink($upload_path_url . $file . '_thumb' . $type);
+		$data = preg_split('/[.]/', $file);
+		$type = '.' . $data[count($data) - 1];
+		$thumb_path = str_replace($type, '_thumb'.$type, $upload_path_url.$file);
+		echo $thumb_path;
+		unlink($thumb_path);
+		$maker_path = str_replace('_thumb', '_maker', $thumb_path);
+		unlink($maker_path);
 
 		$info->sucess = $success;
 		$info->path = $upload_path_url.$file;

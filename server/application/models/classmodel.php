@@ -36,10 +36,21 @@ class classModel extends CI_Model {
 		$this->db->insert('class_comment' , $data) ;
 	}
 
-	function getAllClass()
+
+	function get_class_name($query)
 	{
-		$query = $this->db->get('class_info') ;
-		return $query->result() ;
+		$this->db->select('className');
+		$this->db->like('className' , $query);
+		$sql_result = $this->db->get('class_info');
+
+		return $sql_result->result();
 	}
-	
+
+	function check_class_name($class_name)
+	{
+		$this->db->where(array('className' => $class_name));
+		$sql_result = $this->db->get('class_info');
+
+		return $sql_result->row();
+	}
 }

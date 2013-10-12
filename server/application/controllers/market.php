@@ -26,7 +26,10 @@ class Market extends MY_Controller {
 
 		$product_description = $this->input->post('input_description');
 		$product_owner = $_SESSION['user'] ;
-		$product_image = $_SESSION['product_file_images'];
+		if (isset($_SESSION['product_file_images']) && $_SESSION['product_file_images'] != '')
+			$product_image = $_SESSION['product_file_images'];
+		else
+			$product_image = base_url(). 'upload/default_maker.png';
 
 		$this->load->model('marketmodel') ;
 		$this->marketmodel->insert_product_data($product_title , 
@@ -37,6 +40,20 @@ class Market extends MY_Controller {
 		unset($_SESSION['product_file_images']);
 
 		redirect('market') ;
+	}
+
+	public function update_product_data($product_id)
+	{
+		$this->load->model('marketmodel');
+		$new_data = $this->marketmodel->get_product_info($product_id);
+		$new_data->product_status = 0;
+		$this->marketmodel->update_product_data($product_id, $new_data);
+	}
+
+	public function delete_product_data($product_id)
+	{
+		$this->load->model('marketmodel');
+		$this->marketmodel->delete_product_data($product_id);
 	}
 
 
@@ -61,13 +78,13 @@ class Market extends MY_Controller {
 	{
 		$this->load->model('marketmodel') ;
 		if ($type == 'name')
-			$data['product_info'] = $this->marketmodel->get_product_data_by_name($filter) ;
+			$data['product_info'] = $this->marketmodel->get_product_data_by_name(urldecode($filter));
 		else if ($type == 'books')
-			$data['product_info'] = $this->marketmodel->get_product_data_by_book($filter) ;
+			$data['product_info'] = $this->marketmodel->get_product_data_by_book(urldecode($filter));
 		else
-			$data['product_info'] = $this->marketmodel->get_product_data('all') ;
+			$data['product_info'] = $this->marketmodel->get_product_data('all');
 
-		$this->load->view('product' , $data) ;
+		$this->load->view('product' , $data);
 
 	}
 
@@ -110,6 +127,19 @@ class Market extends MY_Controller {
 		$this->load->view('info' , $data) ;
 	}
 
+	public function get_class_name()
+	{
+		$this->load->model('classmodel');
+		$query = $this->input->get('query') ;
+		$sql_result = $this->classmodel->get_class_name(urldecode($query));
+		$result = array();
+		foreach ($sql_result as $entry)
+			array_push($result, $entry->className);
+
+		$data = array('suggestions' => $result) ;
+		
+		echo json_encode($data);
+	}
 }
 
 /* End of file market.php */

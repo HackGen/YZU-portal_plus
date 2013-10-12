@@ -24,6 +24,17 @@ class marketModel extends CI_Model {
 		$this->db->insert('yzu_market' , $data);
 	}
 
+	function update_product_data($product_id, $data)
+	{
+		$this->db->where(array('product_id' => $product_id));
+		$this->db->update('yzu_market', $data);
+	}
+
+	function delete_product_data($product_id)
+	{
+		$this->db->delete('yzu_market', array('product_id' => $product_id));
+	}
+
 	function get_product_info($id)
 	{
 		$this->db->where(array('product_id' => $id)) ;
@@ -68,7 +79,7 @@ class marketModel extends CI_Model {
 
 	function get_product_data_by_book($name)
 	{
-		$this->db->where('product_course' , $name) ;
+		$this->db->where(array('product_course' => $name)) ;
 		$sql_result = $this->db->get('yzu_market') ;
 
 		return $sql_result->result() ;
@@ -101,6 +112,5 @@ class marketModel extends CI_Model {
 		$sql_result = $this->db->get('yzu_market');
 
 		return $sql_result->result();
-	}
-	
+	}	
 }

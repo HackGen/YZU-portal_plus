@@ -4,7 +4,7 @@
 	<title>Yzu Market</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-	<link rel="stylesheet" href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+	<link rel="stylesheet" href="<?php echo base_url("/statics/css/blueimp-gallery.min.css"); ?>">
 	<link rel="stylesheet" href="<?php echo base_url("/statics/css/jquery.fileupload-ui.css"); ?>">
 	<link rel="stylesheet" href="<?php echo base_url("/statics/css/page.css"); ?>">
 	<link rel="stylesheet" href='<?php echo base_url("/statics/jquery.fancybox.css"); ?>'>

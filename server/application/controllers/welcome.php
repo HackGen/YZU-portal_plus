@@ -50,6 +50,16 @@ class Welcome extends MY_Controller {
 		$this->load->model('classmodel') ;
 		$this->classmodel->insertClassComment($className , $teacher , $comment , $commenter) ;
 	}
+
+	public function check_class_name($class_name)
+	{
+		$this->load->model('classmodel') ;
+		$sql_result = $this->classmodel->check_class_name(urldecode($class_name));
+		if ($sql_result == array())
+			echo 'not found';
+		else
+			echo 'found';
+	}
 }
 
 /* End of file welcome.php */

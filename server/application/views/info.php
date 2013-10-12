@@ -4,6 +4,7 @@
 	<div class="col-md-10">
 
 		<div class="container">
+			<?php if (isset($item)) { ?>
 			<div id="product_items" class="container product_info">
 				<div class="col-md-5 info_image">
 					<a href="<?php echo base_url() . 'index.php/market/info/' . $item->product_id ?>">
@@ -38,7 +39,10 @@
 					</span>
 				<?php } ?>
 			</div>
-
+			<?php } else { ?>
+				此商品已被賣家刪除。<br />
+				This product had been removed.
+			<?php } ?>
 		</div>
 
 	</div>

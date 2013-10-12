@@ -15,7 +15,7 @@
 <script src="<?php echo base_url("/statics/js/jquery.fileupload-validate.js"); ?>"></script>
 <script src="<?php echo base_url("/statics/js/jquery.fileupload-ui.js"); ?>"></script>
 <script src="<?php echo base_url("/statics/jquery.fancybox.pack.js"); ?>"></script>
-<script src="<?php echo base_url("/statics/js/typeahead.min.js"); ?>"></script>
+<script src="<?php echo base_url("/statics/js/jquery.autocomplete.js"); ?>"></script>
 
 <script type="text/javascript" src="<?php echo base_url("/statics/js/masonry.pkgd.js"); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url("/statics/js/script.js"); ?>"></script>

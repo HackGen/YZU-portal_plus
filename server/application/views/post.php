@@ -66,12 +66,14 @@
 						<label for="input_course" class="col-lg-2 control-label">適合課程</label>
 		    			<div class="col-lg-5">
 		      				<input type="text" class="form-control" name="input_course" id="input_course" placeholder="{{ 適合使用的課程 }}">
+		      				<div class="autocomplete-suggestions">
+							</div>
 		    			</div>
 					</div>
 					<div class="form-group">
 						<label for="input_description" class="col-lg-2 control-label">商品描述</label>
 		    			<div class="col-lg-10">
-		      				<input type="text" class="form-control" name="input_description" id="input_description" placeholder="{{ product_description }}" required>
+		      				<input  type="text" class="form-control" name="input_description" id="input_description" placeholder="{{ product_description }}" required>
 		    			</div>
 					</div>
 
