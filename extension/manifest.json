@@ -1,20 +1,19 @@
 ﻿{
 	"manifest_version": 2,
 
-	"name": "元智 portal+",
-	"description": "A extension improve yzu portal.",
-	"version": "0.1",
+	"name": "YZU Portal +",
+	"description": "整合元智課表、二手交易、考古書籍，豐富您的Portal。",
+	"version": "0.11",
 	"content_scripts": [ {
 		"all_frames": true,
 		"css": ["css/style.css"],
-		"js": ["js/jquery.min.js" , "js/jquery.plugin.min.js" , "js/jquery.timer.min.js" , "js/jquery.bpopup.min.js" ,  "portal.js"],
+		"js": ["js/jquery.min.js" , "js/jquery.plugin.min.js" , "js/jquery.timer.min.js" , "js/jquery.bpopup.min.js" ,  "js/portal.js"],
 		"matches": [ "*://*/*" ]
 	} ],
 	"background": {
 		"page": "background.html"
 	},
 	"icons": {
-		"16": "icon/icon16.png",
 		"48": "icon/icon48.png",
 		"128": "icon/icon128.png" 
 	},
@@ -22,6 +21,7 @@
 		"default_icon": "icon/icon48.png",
 		"default_title": "YZU Portal +"
 	},
+	"options_page": "options.html",
 	"permissions": [ "tabs" , "*://*/*" , "storage" ] ,
 	"web_accessible_resources": [ "js/jquery.min.map" ]
 }

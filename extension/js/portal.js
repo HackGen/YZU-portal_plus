@@ -1,11 +1,31 @@
 ﻿class_time_counter = 0 ;
 class_day_counter = 0 ;
 HY_count = 0 ;
-user = '' ;	
+user = '' ;
+refresh = true;
 
 if (window.location.href.search('portalx') != -1)
 {
-	window.location = 'https://portal.yzu.edu.tw/' ;
+	chrome.storage.sync.get('jump', function(result){
+		data = JSON.parse(result.jump);
+		console.log(data.refresh);
+
+		if (data.refresh)
+		{
+			if (data.value == 1)
+				window.location = 'https://portal.yzu.edu.tw';
+			else
+			{
+				window.location = 'https://portalx.yzu.edu.tw';
+				data.refresh = false;
+				chrome.storage.sync.set({'jump': JSON.stringify(data)}, function(){
+					console.log(data.refresh);
+				});
+
+			}
+		}
+		
+	});
 }
 
 if (window.location.href.search('https://portal.yzu.edu.tw/index_def_StandBy.aspx') != -1)
@@ -159,6 +179,17 @@ $('div #content a').each(function() {
 	}
 }) ;
 
+/* $('#Content .left_menu').each(function() {
+	text = $(this).attr('title') ;
+
+	if (text.search('課程名稱') != -1)
+	{
+		classname = $(this).attr('title').split('課程名稱')[1].split('開課系所')[0] ;
+		$(this).text(classname) ;
+ 	}
+
+}) ; */
+
 
 function getClassInfo(value , page)
 {
@@ -194,12 +225,6 @@ function getClassComment(classname , teacher , page)
 				description += '<div class="yzu_portal_class_comment"><table><tr class="class_comment"><td>' + data[i].comment + '</td><td class="class_commenter">' + data[i].commenter + '</td></tr></table></div>' ;
 			
 			description += (page > 1 ? '<a value="' + classname + '/' + teacher + '" page="' + (parseInt(page) - 1) + '" class="yzu_portal_comment_back">上一頁</a>' : '') + '<a value="' + classname + '/' + teacher + '" page="' + (parseInt(page) + 1) + '"class="yzu_portal_comment_next">下一頁</a></div>' ;
-		}
-
-		$('.yzu_portal_popup_2').empty() ;
-		$('.yzu_portal_popup_2').append($(description)) ;
-	}) ;
-}�</a>' : '') + '<a value="' + classname + '/' + teacher + '" page="' + (parseInt(page) + 1) + '"class="yzu_portal_comment_next">下一頁</a></div>' ;
 		}
 
 		$('.yzu_portal_popup_2').empty() ;
